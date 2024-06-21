@@ -10,7 +10,6 @@ fn main() {
         let mut buf = String::new();
         stdin().read_line(&mut buf).unwrap();
 
-
         if buf == "\n" {
             continue;
         }
@@ -34,7 +33,7 @@ fn main() {
             "pwd" => {
                 let path = env::current_dir().unwrap();
                 println!("{}", path.display());
-            },
+            }
             "ls" => {
                 let path = env::current_dir().unwrap();
                 let mut entries = path.read_dir().unwrap();
@@ -43,17 +42,17 @@ fn main() {
                 while let Some(entry) = entries.next() {
                     let entry = entry.unwrap();
                     let path = entry.path();
-                    let display = path.display();
+                    let file_name = path.file_name().unwrap().to_str().unwrap();
 
-                    println!("{}", display);
+                    println!("{}", file_name);
                 }
-            },
+            }
             "exit" => {
                 break;
-            },
+            }
             _ => {
                 continue;
-            },
+            }
         }
     }
 }
