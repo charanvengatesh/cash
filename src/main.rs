@@ -1,15 +1,19 @@
 use std::env;
 use std::io::{ stdin, stdout, Write };
 use std::path::Path;
-use std::process::{ Child, Command, Stdio };
 
 fn main() {
     loop {
-        print!("> ");
+        print!("{}> ", env::current_dir().unwrap().display());
         let _ = stdout().flush();
 
         let mut buf = String::new();
         stdin().read_line(&mut buf).unwrap();
+
+
+        if buf == "\n" {
+            continue;
+        }
 
         let mut parts = buf.trim().split_whitespace();
         let command = parts.next().unwrap();
@@ -47,7 +51,9 @@ fn main() {
             "exit" => {
                 break;
             },
-            _ => {},
+            _ => {
+                continue;
+            },
         }
     }
 }
